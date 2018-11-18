@@ -3,15 +3,50 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3",
-    "react-scripts": "2.1.1"
+    "ajv": "^6.5.5",
+    "availity-reactstrap-validation": "^2.3.3",
+    "axios": "^0.18.0",
+    "axios-mock-adapter": "^1.15.0",
+    "coveralls": "^3.0.2",
+    "draft-js": "^0.10.5",
+    "fetch-mock": "^7.2.5",
+    "jwt-decode": "^2.2.0",
+    "moment": "^2.22.2",
+    "prop-types": "^15.6.2",
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0",
+    "react-draft-wysiwyg": "^1.12.13",
+    "react-facebook-login": "^4.1.1",
+    "react-google-login": "^3.2.1",
+    "dateformat": "^3.0.3",
+    "react-moment": "^0.8.3",
+    "react-notify-toast": "^0.5.0",
+    "react-quill": "^1.3.2",
+    "react-redux": "^5.1.0",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "2.0.5",
+    "react-stars": "^2.2.5",
+    "react-toastify": "^4.4.0",
+    "react-toolbox": "^2.0.0-beta.13",
+    "reactstrap": "^6.5.0",
+    "redux": "^4.0.1",
+    "redux-devtools-extension": "^2.13.5",
+    "redux-mock-store": "^1.5.3",
+    "redux-thunk": "^2.3.0",
+    "serve": "^10.0.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "dev": "react-scripts start",
+    "start": "serve -s build",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint . --ignore-path .gitignore",
+    "coverage": "react-scripts test --coverage",
+    "fix": "eslint . --fix --ignore-path .gitignore",
+    "heroku-postbuild": "npm run build",
+    "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -21,5 +56,27 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint",
+      "pre-push": "npm run coverage"
+    }
+  },
+  "devDependencies": {
+    "babel-eslint": "^9.0.0",
+    "dotenv": "^6.1.0",
+    "enzyme": "^3.7.0",
+    "enzyme-adapter-react-16": "^1.6.0",
+    "eslint": "^5.6.0",
+    "expect": "^23.6.0",
+    "husky": "^1.1.3",
+    "jest": "^23.6.0",
+    "moxios": "^0.4.0",
+    "node-sass": "^4.9.4",
+    "react-test-renderer": "^16.6.0",
+    "redux-mock-store": "^1.5.3",
+    "redux-testkit": "^1.0.6",
+    "sass-loader": "^7.1.0"
+  }
 }
