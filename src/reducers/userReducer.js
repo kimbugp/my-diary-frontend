@@ -1,4 +1,4 @@
-import { LOGIN} from "../actions/actionTypes";
+import { LOGIN, ERROR} from "../actions/actionTypes";
 
 const initialState = {
   user:{},
@@ -10,8 +10,15 @@ export default function userReducer(state = initialState, action) {
   case LOGIN:
     return {
       ...state,
-      isLoggedIn:action.payload
+      user:action.payload,
+      isLoggedIn:action.isLoggedIn
     };
+  case ERROR:
+  return {
+    ...state,
+    error:action.payload.data,
+    status:action.payload.status
+  };
   default:
     return state;
   }
