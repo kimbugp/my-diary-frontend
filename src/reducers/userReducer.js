@@ -1,4 +1,4 @@
-import { LOGIN, ERROR} from "../actions/actionTypes";
+import { LOGIN, ERROR,SIGNUP} from "../actions/actionTypes";
 
 const initialState = {
   user:{},
@@ -16,7 +16,13 @@ export default function userReducer(state = initialState, action) {
   case ERROR:
   return {
     ...state,
-    error:action.payload.data,
+    error:action.payload.data.message,
+    status:action.payload.status
+  };
+  case SIGNUP:
+  return {
+    ...state,
+    signup:action.payload,
     status:action.payload.status
   };
   default:

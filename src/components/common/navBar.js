@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import {
   Navbar,
   NavbarBrand,
-  UncontrolledCollapse,
+  Collapse,
   NavItem,
   NavLink,
   NavbarToggler,
@@ -13,16 +13,25 @@ import { connect } from "react-redux";
 class NavigationBar extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
-  }
 
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      isOpen: false
+    };
+  }
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  }
+  
   render() {
     return (
       <Fragment>
         <Navbar color="secondary" light expand="md">
           <NavbarBrand href="/">My Diary</NavbarBrand>
-          <NavbarToggler id="toggler" />
-          <UncontrolledCollapse navbar toggler="#toggler" >
+          <NavbarToggler onClick={this.toggle}/>
+          <Collapse navbar isOpen={this.state.isOpen} >
             <Nav className="ml-auto" navbar hidden={!this.props.isLoggedIn}>
               <NavItem >
                 <NavLink href="/">Home</NavLink>
@@ -34,7 +43,7 @@ class NavigationBar extends Component {
                 <NavLink href="/about">About</NavLink>
               </NavItem>
             </Nav>
-          </UncontrolledCollapse>
+          </Collapse>
         </Navbar>
       </Fragment>
     );
