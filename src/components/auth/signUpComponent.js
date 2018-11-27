@@ -1,30 +1,35 @@
 import React, { Component, Fragment } from "react";
-import loginAction from "../../actions/auth/loginAction";
 import { Loading } from "../../actions/loadingAction";
+import loginAction from "../../actions/auth/loginAction";
 import { connect } from "react-redux";
 import "../../assets/login.scss";
 import Footer from "../common/footer";
-import LoginForm from "../../views/loginForm";
 import NavBar from "../common/navBar";
+import SignUpAction from "../../actions/auth/signupAction";
+import SignupForm from "../../views/signupForm";
 
-export class Login extends Component {
+export class Signup extends Component {
   state = {};
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.user.isLoggedIn) {
-      localStorage.setItem("token", nextProps.user.user.Token);
+    if (nextProps.register === 201) {
+      nextProps.loginAction(this.state);
+    }
+    if (nextProps.status) {
+      localStorage.setItem("token", nextProps.token);
       this.props.history.push("/");
     }
   }
   handleValidSubmit = (event, values) => {
+    this.setState(values);
     this.props.Loading(true);
-    this.props.loginAction(values);
+    this.props.SignUpAction(values);
   };
   render() {
     return (
       <Fragment>
         <NavBar />
-        <LoginForm
+        <SignupForm
           submit={this.handleValidSubmit}
           loader={!this.props.isLoading}
           error={this.props.error}
@@ -35,11 +40,13 @@ export class Login extends Component {
   }
 }
 const mapStateToProps = state => ({
-  user: state.userReducer,
+  register: state.userReducer.status,
   isLoading: state.loadingReducer.isLoading,
+  status: state.userReducer.isLoggedIn,
+  token: state.userReducer.user.Token,
   error: state.userReducer.error
 });
 export default connect(
   mapStateToProps,
-  { loginAction, Loading }
-)(Login);
+  { SignUpAction, Loading, loginAction }
+)(Signup);

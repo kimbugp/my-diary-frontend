@@ -1,4 +1,4 @@
-import { LOGIN, ERROR } from "../actionTypes";
+import { LOGIN, ERROR, LOADING } from "../actionTypes";
 import axios from "axios";
 import { LOGIN_URL } from "../../appUrls";
 
@@ -17,6 +17,7 @@ const loginAction = data => dispatch => {
         type: ERROR,
         payload: error.response
       });
+      dispatch({ type: LOADING, isLoading: false });
     });
 };
 export default loginAction;

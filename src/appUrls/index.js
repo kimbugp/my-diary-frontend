@@ -1,2 +1,3 @@
-export const BASE_URL="https://simondb.herokuapp.com"
-export const LOGIN_URL=`${BASE_URL}/api/v1/auth/login`;
+export const BASE_URL="https://simondb.herokuapp.com/api/v1"
+export const LOGIN_URL=`${BASE_URL}/auth/login`;
+export const SIGNUP_URL=`${BASE_URL}/auth/signup`;

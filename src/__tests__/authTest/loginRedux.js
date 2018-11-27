@@ -14,10 +14,10 @@ describe("login action", () => {
     ({ mock, store } = mockSetup(mock, store));
   });
   it("dispatches login action", () => {
-    axiosMock(200, loginAction);
+    axiosMock(200, loginAction, LOGIN_URL,[]);
   });
   it("dispatches login error action", () => {
-    axiosMock(400, loginAction);
+    axiosMock(400, loginAction, LOGIN_URL,[]);
   });
   it("dispatches loading action", () => {
     Loading(true)(store.dispatch);
@@ -45,21 +45,21 @@ describe("login reducer", () => {
   });
   it("updates on unsuccessful login", () => {
     expect(userReducer(initialState, action(ERROR))).toEqual({
-      error: "",
+      error: undefined,
       isLoggedIn: false,
       status: "",
       user: {}
     });
   });
 });
-const mockSetup = (mock, store) => {
+export const mockSetup = (mock, store) => {
   mock = new MockAdapter(axios);
   const mockStore = configureMockStore();
   store = mockStore({});
   return { mock, store };
 };
-const axiosMock = (status, action) => {
-  mock.onPost(LOGIN_URL).reply(status, {});
+export const axiosMock = (status, action, URL,data) => {
+  mock.onPost(URL).reply(status, {});
   action({})(store.dispatch);
-  expect(store.getActions()).toEqual([]);
+  expect(store.getActions()).toEqual(data);
 };
