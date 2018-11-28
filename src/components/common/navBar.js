@@ -9,6 +9,7 @@ import {
   Nav
 } from "reactstrap";
 import { connect } from "react-redux";
+import { Authenticate } from "../../routes/protectedRoutes";
 
 class NavigationBar extends Component {
   constructor(props) {
@@ -19,6 +20,9 @@ class NavigationBar extends Component {
       isOpen: false
     };
   }
+  handleClick=()=>{
+    localStorage.clear()
+  }
   toggle() {
     this.setState({
       isOpen: !this.state.isOpen
@@ -26,21 +30,22 @@ class NavigationBar extends Component {
   }
   
   render() {
+  const isLoggedIn = Authenticate(localStorage.getItem("token"));
     return (
       <Fragment>
         <Navbar color="secondary" light expand="md">
           <NavbarBrand href="/">My Diary</NavbarBrand>
           <NavbarToggler onClick={this.toggle}/>
           <Collapse navbar isOpen={this.state.isOpen} >
-            <Nav className="ml-auto" navbar hidden={!this.props.isLoggedIn}>
+            <Nav className="ml-auto" navbar hidden={!isLoggedIn}>
               <NavItem >
                 <NavLink href="/">Home</NavLink>
               </NavItem>
               <NavItem >
-                <NavLink href="/profile" >Profile</NavLink>
+                <NavLink href="/profile">Profile</NavLink>
               </NavItem>
               <NavItem >
-                <NavLink href="/about">About</NavLink>
+                <NavLink href="/login" onClick={this.handleClick}>Logout</NavLink>
               </NavItem>
             </Nav>
           </Collapse>
