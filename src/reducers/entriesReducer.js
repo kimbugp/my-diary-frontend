@@ -1,7 +1,8 @@
-import { GET_ENTRIES, ERROR} from "../actions/actionTypes";
+import { GET_ENTRIES, ENTRY_ERROR,ADD_ENTRIES} from "../actions/actionTypes";
 
 const initialState = {
-    entries:[]
+    entries:[],
+    new:{}
 };
   
 export default function entriesReducer(state = initialState, action) {
@@ -11,10 +12,15 @@ export default function entriesReducer(state = initialState, action) {
       ...state,
       entries:action.payload.entries,
     };
-  case ERROR:
+  case ENTRY_ERROR:
   return {
     ...state,
-    error:action.payload,
+    error:action.payload.data.message,
+  };
+  case ADD_ENTRIES:
+  return {
+    ...state,
+    new:action.payload,
   };
   default:
     return state;

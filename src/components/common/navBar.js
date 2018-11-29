@@ -33,7 +33,7 @@ class NavigationBar extends Component {
   const isLoggedIn = Authenticate(localStorage.getItem("token"));
     return (
       <Fragment>
-        <Navbar color="secondary" light expand="md">
+        <Navbar color="primary" light expand="md">
           <NavbarBrand href="/">My Diary</NavbarBrand>
           <NavbarToggler onClick={this.toggle}/>
           <Collapse navbar isOpen={this.state.isOpen} >
