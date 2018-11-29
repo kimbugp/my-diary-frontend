@@ -10,7 +10,7 @@ import { MemoryRouter } from "react-router-dom";
 
 it("renders without crush", () => {
   let component = shallow(<SignupForm />);
-  expect(component.hasClass("auth-form")).toEqual(true);
+  expect(component.hasClass("title-tag")).toEqual(true);
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
@@ -34,15 +34,15 @@ describe("signup page", () => {
   });
   it("submits values", () => {
     let form = component.find("form");
-    form.simulate("submit");
-    expect(component.instance().handleValidSubmit).toBeUndefined();
+    form.simulate("submit", {});
+    expect(wrapper.instance().handleValidSubmit()).toBeUndefined();
   });
   it("registers a new user and dispachted login", () => {
-    wrapper.setProps({ register:201 });
-    expect(wrapper.instance().handleValidSubmit({})).toBeUndefined();
+    wrapper.setProps({ register: 201 });
+    expect(loginAction).toBeCalledTimes(1);
   });
   it("redirects to home page after login", () => {
-    wrapper.setProps({ status:true });
-    expect(wrapper.instance().handleValidSubmit({})).toBeUndefined();
+    wrapper.setProps({ status: true });
+    expect(push).toBeCalledTimes(1);
   });
 });

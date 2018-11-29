@@ -5,7 +5,7 @@ import { Login } from "../../components/auth/loginComponent";
 
 it("renders without crush", () => {
   let component = shallow(<LoginForm />);
-  expect(component.hasClass("auth-form")).toEqual(true);
+  expect(component.hasClass("title-tag")).toEqual(true);
 });
 describe("LoginPage", () => {
   let component;

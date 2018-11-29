@@ -42,6 +42,9 @@ class NavigationBar extends Component {
                 <NavLink href="/">Home</NavLink>
               </NavItem>
               <NavItem >
+                <NavLink href="/add">Add</NavLink>
+              </NavItem>
+              <NavItem >
                 <NavLink href="/profile">Profile</NavLink>
               </NavItem>
               <NavItem >

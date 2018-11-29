@@ -1,0 +1,28 @@
+$primary:#6c757d;
+.options {
+  float: right;
+}
+.entry-card {
+  width: 100%;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  align-self: auto;
+}
+.entry {
+  margin: 20px;
+  min-height: 40px;
+}
+.entry-card p {
+  display: inline-block;
+}
+.entries-list{
+  overflow: auto;
+  height: 900px;
+}
+.entry-header{
+  color: #ffffff;
+  background-color: #6c757d;
+  font-size: 30px;
+  text-align: center;
+  margin-top: 20px;
+}
