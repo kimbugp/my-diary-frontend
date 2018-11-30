@@ -11,6 +11,7 @@ const loginAction = data => dispatch => {
         payload: res.data,
         isLoggedIn: true
       });
+      dispatch({ type: LOADING, isLoading: false });
     })
     .catch(error => {
       dispatch({

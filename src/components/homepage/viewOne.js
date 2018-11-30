@@ -3,21 +3,38 @@ import NavigationBar from "../common/navBar";
 import Footer from "../common/footer";
 import { Jumbotron, Container, Button } from "reactstrap";
 import { connect } from "react-redux";
-import { getEntry } from "../../actions/entriesActions";
+import { getEntry, deleteEntry } from "../../actions/entriesActions";
 import Moment from "react-moment";
 
-class Entry extends Component {
+export class Entry extends Component {
   state = {};
   componentWillMount() {
-    const id = this.props.match.params.id;
-    this.props.getEntry(id);
-  }
-  componentDidUpdate(){
-    console.log(this.props);
-    if(this.props.error){
-      this.props.history.push("/qwer");
+    const id = parseInt(this.props.match.params.id,10);
+    if (Number.isInteger(id)) {
+      this.props.getEntry(id);
+    }
+    else{
+      this.props.history.push("/404");
     }
   }
+  componentDidUpdate() {
+    if (this.props.error === 404) {
+      this.props.history.push("/404");
+    }
+  }
+  componentWillReceiveProps(nextprops) {
+    if (nextprops.delete.length > this.props.delete.length) {
+      this.props.history.push("/");
+    }
+  }
+  delete = event => {
+    const id = event.target.id;
+    this.props.deleteEntry(id);
+  };
+  edit = event => {
+    const id = event.target.id;
+    this.props.history.push(`/entry/${id}/edit`);
+  };
   render() {
     return (
       <Fragment>
@@ -42,10 +59,20 @@ class Entry extends Component {
                   __html: this.props.entry.entry_content
                 }}
               />
-              <Button outline color="primary">
+              <Button
+                outline
+                color="primary"
+                id={this.props.entry.entry_id}
+                onClick={this.edit}
+              >
                 Edit{" "}
               </Button>{" "}
-              <Button outline color="primary">
+              <Button
+                outline
+                color="primary"
+                id={this.props.entry.entry_id}
+                onClick={this.delete}
+              >
                 Delete
               </Button>{" "}
             </Container>
@@ -60,9 +87,10 @@ class Entry extends Component {
 const mapStateToProps = ({ loadingReducer, entriesReducer }) => ({
   entry: entriesReducer.one,
   error: entriesReducer.error,
-  isLoading: loadingReducer.isLoading
+  isLoading: loadingReducer.isLoading,
+  delete: entriesReducer.delete
 });
 export default connect(
   mapStateToProps,
-  { getEntry }
+  { getEntry, deleteEntry }
 )(Entry);

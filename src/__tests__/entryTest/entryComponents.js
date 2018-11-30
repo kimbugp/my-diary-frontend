@@ -32,21 +32,41 @@ describe("homepage component", () => {
   });
 });
 
-it("renders entry card", () => {
+describe("index file", () => {
+  let deleteEntry = jest.fn();
+  let push = jest.fn();
   let props = {
     entries: [{ entry_id: 1 }, { entry_id: 2 }],
-    entriesAction: jest.fn()
+    entriesAction: jest.fn(),
+    delete: [{}],
+    deleteEntry,
+    history: { push },
+    Loading: jest.fn()
   };
-  let wrap = shallow(<Home {...props} />);
-  wrap.setProps({ props });
-  expect(wrap.state()).toBeDefined();
-});
-it("no entries for a user ", () => {
-  let props = {
-    entries: [],
-    entriesAction: jest.fn()
-  };
-  let wrap = shallow(<Home {...props} />);
-  wrap.setProps({ props });
-  expect(wrap.state()).toBeDefined();
+  it("renders entry card", () => {
+    let wrap = shallow(<Home {...props} />);
+    wrap.setProps({ props, delete: [{}, {}] });
+    expect(wrap.state()).toBeDefined();
+  });
+  it("no entries for a user ", () => {
+    let props = {
+      entries: [],
+      entriesAction: jest.fn(),
+      delete: [],
+      Loading: jest.fn()
+    };
+    let wrap = shallow(<Home {...props} />);
+    wrap.setProps({ props });
+    expect(wrap.state()).toBeDefined();
+  });
+  it("delete button is clicked", () => {
+    let wrap = shallow(<Home {...props} />);
+    wrap.instance().delete({ target: { id: 1 } });
+    expect(deleteEntry).toBeCalled();
+  });
+  it("edit button is clicked", () => {
+    let wrap = shallow(<Home {...props} />);
+    wrap.instance().edit({ target: { id: 1 } });
+    expect(push).toBeCalled();
+  });
 });
