@@ -8,7 +8,7 @@ import thunk from "redux-thunk";
 import rootReducer from "../../reducers/rootReducer";
 import { MemoryRouter } from "react-router-dom";
 
-const store = createStore(rootReducer, applyMiddleware(thunk));
+export const store = createStore(rootReducer, applyMiddleware(thunk));
 it("renders entry card", () => {
   expect(shallow(<Entries />)).toBeDefined();
 });
