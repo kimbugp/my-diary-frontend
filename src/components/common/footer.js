@@ -4,7 +4,7 @@ import Loader from "react-loader-spinner";
 
 const Footer = () => (
   <Fragment>
-    <div className="space" />
+    <div className="m-5" />
     <CardFooter className="footer" color="primary">
       <p>Simon, Copyright © 2018</p>
     </CardFooter>

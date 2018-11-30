@@ -4,7 +4,7 @@ import configureMockStore from "redux-mock-store";
 import { LOGIN_URL } from "../../appUrls";
 import loginAction from "../../actions/auth/loginAction";
 import userReducer from "../../reducers/userReducer";
-import { LOGIN, ERROR } from "../../actions/actionTypes";
+import { LOGIN, ERROR, SIGNUP } from "../../actions/actionTypes";
 import { Loading } from "../../actions/loadingAction";
 
 let store;
@@ -14,10 +14,10 @@ describe("login action", () => {
     ({ mock, store } = mockSetup(mock, store));
   });
   it("dispatches login action", () => {
-    axiosMock(200, loginAction, LOGIN_URL,[]);
+    axiosMock(200, loginAction, LOGIN_URL, []);
   });
   it("dispatches login error action", () => {
-    axiosMock(400, loginAction, LOGIN_URL,[]);
+    axiosMock(400, loginAction, LOGIN_URL, []);
   });
   it("dispatches loading action", () => {
     Loading(true)(store.dispatch);
@@ -51,6 +51,14 @@ describe("login reducer", () => {
       user: {}
     });
   });
+  it("updates on unsuccessful login", () => {
+    expect(userReducer(initialState, action(SIGNUP))).toEqual({
+      isLoggedIn: false,
+      signup: { data: "", status: "" },
+      status: "",
+      user: {}
+    });
+  });
 });
 export const mockSetup = (mock, store) => {
   mock = new MockAdapter(axios);
@@ -58,7 +66,7 @@ export const mockSetup = (mock, store) => {
   store = mockStore({});
   return { mock, store };
 };
-export const axiosMock = (status, action, URL,data) => {
+export const axiosMock = (status, action, URL, data) => {
   mock.onPost(URL).reply(status, {});
   action({})(store.dispatch);
   expect(store.getActions()).toEqual(data);

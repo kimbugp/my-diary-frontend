@@ -17,23 +17,29 @@ const Entries = props => (
     <Card>
       <CardHeader color="simon">
         <div id={props.entry_id}>
-          <Link to={`/${props.entry_id}`}>
-            <p>{props.entry_name}</p>
-            <Moment fromNow>{props.entry_date}</Moment>
+          <Link to={`/entry/${props.entry_id}`}>
+            <p>{props.entry_name}</p>{" "}
           </Link>
+          <Moment fromNow className="lead">
+            {props.entry_date}
+          </Moment>
           <UncontrolledDropdown color="secondary" className="options">
             <DropdownToggle outline color="secondary" id={props.entry_id} caret>
               ...
             </DropdownToggle>
             <DropdownMenu>
-              <DropdownItem id={props.entry_id}>Delete</DropdownItem>
-              <DropdownItem id={props.entry_id}>Edit</DropdownItem>
+              <DropdownItem id={props.entry_id} onClick={props.Delete}>Delete</DropdownItem>
+              <DropdownItem id={props.entry_id} onClick={props.Edit}>Edit</DropdownItem>
             </DropdownMenu>
           </UncontrolledDropdown>
         </div>
       </CardHeader>
       <div className="entry">
-        <CardText dangerouslySetInnerHTML={{ __html: props.entry_content }} />
+        <CardText
+          dangerouslySetInnerHTML={{
+            __html: `${props.entry_content.substring(0, 100)} ...`
+          }}
+        />
       </div>
     </Card>
   </div>

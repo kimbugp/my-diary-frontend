@@ -11,13 +11,7 @@ export class NewEntry extends Component {
     super(props);
     this.state = { entry: "" };
   }
-
-  componentWillMount() {
-    if (this.props.edit === true) {
-      this.props.Loading(true);
-    }
-  }
-
+  
   handleSubmit = (event, values) => {
     const data = { ...values, entry_content: this.state.entry };
     this.props.addEntry(data);

@@ -8,7 +8,6 @@ import {
   NavbarToggler,
   Nav
 } from "reactstrap";
-import { connect } from "react-redux";
 import { Authenticate } from "../../routes/protectedRoutes";
 
 class NavigationBar extends Component {
@@ -57,11 +56,4 @@ class NavigationBar extends Component {
     );
   }
 }
-const mapStateToProps = state => ({
-  isLoggedIn: state.userReducer.isLoggedIn
-});
-
-export default connect(
-  mapStateToProps,
-  {}
-)(NavigationBar);
+export default NavigationBar;

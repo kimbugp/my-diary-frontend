@@ -4,7 +4,10 @@ import entriesReducer from "../../reducers/entriesReducer";
 import {
   GET_ENTRIES,
   ENTRY_ERROR,
-  ADD_ENTRIES
+  ADD_ENTRIES,
+  GET_ENTRY,
+  EDIT_ENTRY,
+  DELETE_ENTRY
 } from "../../actions/actionTypes";
 import { mockSetup } from "../authTest/loginRedux";
 
@@ -53,6 +56,19 @@ describe("entries reducer", () => {
   it("add new entry", () => {
     expect(entriesReducer({}, action(ADD_ENTRIES))).toEqual({
       new: { data: "", status: "" }
+    });
+  });
+  it("get one entry", () => {
+    expect(entriesReducer({}, action(GET_ENTRY))).toEqual({ one: undefined });
+  });
+  it("edit an entry", () => {
+    expect(entriesReducer({}, action(EDIT_ENTRY))).toEqual({
+      edit: { data: "", status: "" }
+    });
+  });
+  it("delete an entry", () => {
+    expect(entriesReducer({}, action(DELETE_ENTRY))).toEqual({
+      delete: { data: "", status: "" }
     });
   });
 });
