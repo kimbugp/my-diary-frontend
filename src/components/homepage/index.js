@@ -14,8 +14,8 @@ export class Home extends Component {
 
   }
   componentWillReceiveProps(nextprops) {
-    if (nextprops.entries.length === 0) {
-      this.setState({ header: "You have no entries " });
+    if (nextprops.delete.length > this.props.delete.length) {
+      this.props.entriesAction();
     }
     if (nextprops.delete.length > this.props.delete.length) {
       this.props.entriesAction();
@@ -44,8 +44,13 @@ export class Home extends Component {
     return (
       <Fragment>
         <NavBar />
-        <div className="container entry-header">{this.state.header}</div>
-        <LoadingBar loader={!this.props.isLoading} class="h-100 row align-items-center"/>
+        <div className="container entry-header">
+          {this.props.header}
+          <LoadingBar
+            loader={!this.props.isLoading}
+            class="h-100 row align-items-center"
+          />
+        </div>
         <div className="container entries-list">{Entries}</div>
         <Footer />
       </Fragment>
@@ -55,9 +60,10 @@ export class Home extends Component {
 const mapStateToProps = ({ entriesReducer, loadingReducer }) => ({
   entries: entriesReducer.entries,
   isLoading: loadingReducer.isLoading,
-  delete: entriesReducer.delete
+  delete: entriesReducer.delete,
+  header:entriesReducer.header
 });
 export default connect(
   mapStateToProps,
-  { entriesAction, deleteEntry,Loading }
+  { entriesAction, deleteEntry, Loading }
 )(Home);

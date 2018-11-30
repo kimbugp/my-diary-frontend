@@ -13,16 +13,25 @@ const initialState = {
   one: {},
   delete: [],
   edit: [],
-  error:[]
+  error: []
 };
 
 export default function entriesReducer(state = initialState, action) {
   switch (action.type) {
     case GET_ENTRIES:
-      return {
-        ...state,
-        entries: action.payload.entries.reverse()
-      };
+      if (action.payload.entries.length>0) {
+        return {
+          ...state,
+          entries: action.payload.entries.reverse(),
+          header:"Entries"
+        };
+      } else {
+        return {
+          ...state,
+          entries: action.payload.entries.reverse(),
+          header:"You have no entries"
+        };
+      }
     case ENTRY_ERROR:
       return {
         ...state,
