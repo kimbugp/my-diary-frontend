@@ -1,4 +1,4 @@
-import {GET_ENTRIES,ENTRY_ERROR,LOADING,ADD_ENTRIES } from "./actionTypes";
+import {GET_ENTRIES,ENTRY_ERROR,LOADING,ADD_ENTRIES,GET_ENTRY } from "./actionTypes";
 import axios from "axios";
 import { ENTRIES_URL } from "../appUrls";
 
@@ -29,6 +29,24 @@ export const addEntry = (data) => dispatch => {
       dispatch({
         type: ADD_ENTRIES,
         payload: res.data,
+      });
+    })
+    .catch(error => {
+      dispatch({
+        type: ENTRY_ERROR,
+        payload: error.response
+      });
+      dispatch({ type: LOADING, isLoading: false });
+    });
+};
+
+export const getEntry = (id) => dispatch => {
+  axios
+    .get(`${ENTRIES_URL}/${id}`,headers())
+    .then(res => {
+      dispatch({
+        type: GET_ENTRY,
+        payload: res.data.entries,
       });
     })
     .catch(error => {

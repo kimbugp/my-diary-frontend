@@ -8,7 +8,7 @@ import {LoadingBar} from "../components/common/footer";
 const EntryForm = props => {
   return (
     <Fragment>
-      <Jumbotron>
+      <Jumbotron className="m-5">
         <Container>
           <h1 className="display-4">Add a new Diary Entry</h1>
           <AvForm onValidSubmit={props.submit}>
