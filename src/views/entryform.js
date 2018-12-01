@@ -18,18 +18,27 @@ const EntryForm = props => {
               type="text"
               errorMessage="Title must be atleast 6 characters"
               validate={{
-                minLength: { value: 6 ,errorMessage:"Title must be atleast 6 characters"},
-                maxLength:{value:50,errorMessage:"Title has to be less than 50 characters"}
+                minLength: {
+                  value: 6,
+                  errorMessage: "Title must be atleast 6 characters"
+                },
+                maxLength: {
+                  value: 50,
+                  errorMessage: "Title has to be less than 50 characters"
+                }
               }}
               required
             />
             <Label>Entry Body</Label>
-            <ReactQuill
-              theme=""
-              value={props.entry}
-              onChange={props.handleChange}
-              placeholder="Enter your entry here"
-            />
+            <div className="entrybox">
+              <ReactQuill
+                theme=""
+                value={props.entry}
+                onChange={props.handleChange}
+                placeholder="Enter your entry here"
+              />
+            </div>
+
             <Button color="primary">Submit</Button>
             <LoadingBar loader={props.loader} error={props.error} />
           </AvForm>
