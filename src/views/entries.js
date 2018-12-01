@@ -23,8 +23,8 @@ const Entries = props => (
           <Moment fromNow className="lead">
             {props.entry_date}
           </Moment>
-          <UncontrolledDropdown color="secondary" className="options">
-            <DropdownToggle outline color="secondary" id={props.entry_id} caret>
+          <UncontrolledDropdown color="primary" className="options">
+            <DropdownToggle outline color="primary" id={props.entry_id} caret>
               ...
             </DropdownToggle>
             <DropdownMenu>
