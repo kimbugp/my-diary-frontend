@@ -10,7 +10,10 @@ import {
 const initialState = {
   entries: [],
   new: {},
-  one:{}
+  one: {},
+  delete: [],
+  edit: [],
+  error:[]
 };
 
 export default function entriesReducer(state = initialState, action) {
@@ -18,12 +21,12 @@ export default function entriesReducer(state = initialState, action) {
     case GET_ENTRIES:
       return {
         ...state,
-        entries: action.payload.entries
+        entries: action.payload.entries.reverse()
       };
     case ENTRY_ERROR:
       return {
         ...state,
-        error: action.payload.data.message
+        error: action.payload.status
       };
     case ADD_ENTRIES:
       return {
@@ -38,12 +41,12 @@ export default function entriesReducer(state = initialState, action) {
     case DELETE_ENTRY:
       return {
         ...state,
-        delete: action.payload
+        delete: state.delete.concat(action.payload)
       };
     case EDIT_ENTRY:
       return {
         ...state,
-        edit: action.payload
+        edit: state.edit.concat(action.payload)
       };
     default:
       return state;

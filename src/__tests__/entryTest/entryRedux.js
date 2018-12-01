@@ -38,37 +38,60 @@ describe("add entries action", () => {
 const action = action => {
   return {
     type: action,
-    payload: { status: "", data: "" },
+    payload: { status: "", data: "", entries: [] },
     isLoggedIn: true
   };
 };
+const initialState = {
+  entries: [],
+  new: {},
+  one: {},
+  delete: [],
+  edit: []
+};
 describe("entries reducer", () => {
   it("updates on succesful fetch", () => {
-    expect(entriesReducer({}, action(GET_ENTRIES))).toEqual({
-      entries: undefined
-    });
+    expect(entriesReducer(initialState, action(GET_ENTRIES))).toEqual(
+      initialState
+    );
   });
   it("updates on unsuccessful fetch", () => {
-    expect(entriesReducer({}, action(ENTRY_ERROR))).toEqual({
-      error: undefined
-    });
+    expect(entriesReducer({}, action(ENTRY_ERROR))).toEqual({ error: "" });
   });
   it("add new entry", () => {
-    expect(entriesReducer({}, action(ADD_ENTRIES))).toEqual({
-      new: { data: "", status: "" }
+    expect(entriesReducer(initialState, action(ADD_ENTRIES))).toEqual({
+      delete: [],
+      edit: [],
+      entries: [],
+      new: { data: "", entries: [], status: "" },
+      one: {}
     });
   });
   it("get one entry", () => {
-    expect(entriesReducer({}, action(GET_ENTRY))).toEqual({ one: undefined });
+    expect(entriesReducer(initialState, action(GET_ENTRY))).toEqual({
+      delete: [],
+      edit: [],
+      entries: [],
+      new: {},
+      one: undefined
+    });
   });
   it("edit an entry", () => {
-    expect(entriesReducer({}, action(EDIT_ENTRY))).toEqual({
-      edit: { data: "", status: "" }
+    expect(entriesReducer(initialState, action(EDIT_ENTRY))).toEqual({
+      delete: [],
+      edit: [{ data: "", entries: [], status: "" }],
+      entries: [],
+      new: {},
+      one: {}
     });
   });
   it("delete an entry", () => {
-    expect(entriesReducer({}, action(DELETE_ENTRY))).toEqual({
-      delete: { data: "", status: "" }
+    expect(entriesReducer(initialState, action(DELETE_ENTRY))).toEqual({
+      delete: [{ data: "", entries: [], status: "" }],
+      edit: [],
+      entries: [],
+      new: {},
+      one: {}
     });
   });
 });

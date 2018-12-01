@@ -28,8 +28,8 @@ const Entries = props => (
               ...
             </DropdownToggle>
             <DropdownMenu>
-              <DropdownItem id={props.entry_id} onClick={props.Delete}>Delete</DropdownItem>
-              <DropdownItem id={props.entry_id} onClick={props.Edit}>Edit</DropdownItem>
+              <DropdownItem id={props.entry_id} onClick={props.delete}>Delete</DropdownItem>
+              <DropdownItem id={props.entry_id} onClick={props.edit}>Edit</DropdownItem>
             </DropdownMenu>
           </UncontrolledDropdown>
         </div>

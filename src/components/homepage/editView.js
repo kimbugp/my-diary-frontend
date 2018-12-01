@@ -3,24 +3,29 @@ import NavBar from "../common/navBar";
 import Footer from "../common/footer";
 import EntryForm from "../../views/entryform";
 import { connect } from "react-redux";
-import { addEntry } from "../../actions/entriesActions";
+import { editEntry, getEntry } from "../../actions/entriesActions";
 import { Loading } from "../../actions/loadingAction";
 
-export class NewEntry extends Component {
+export class EditEntry extends Component {
   constructor(props) {
     super(props);
-    this.state = { entry: "" };
+    this.state = { entry: "", title: "" };
   }
 
+  componentWillMount() {
+    let id = this.props.match.params.id;
+    this.props.getEntry(id);
+  }
   handleSubmit = (event, values) => {
     const data = { ...values, entry_content: this.state.entry };
-    this.props.addEntry(data);
+    this.props.editEntry(data, this.props.match.params.id);
     this.props.Loading(true);
   };
   componentWillReceiveProps(nextProps) {
-    if (nextProps.response.entry_id) {
-      this.props.history.push(`/entry/${nextProps.response.entry_id}`);
+    if (nextProps.edit.length>this.props.edit.length) {
+      this.props.history.push(`/entry/${this.props.entry.entry_id}`);
     }
+    this.setState({ entry: nextProps.entry.entry_content,title:nextProps.entry.entry_name });
   }
   getInput = value => {
     this.setState({ entry: value });
@@ -31,7 +36,8 @@ export class NewEntry extends Component {
         <NavBar />
         <div className="container">
           <EntryForm
-            header={"Add a new Diary Entry"}
+            title={this.state.title}
+            header={"Edit Diary Entry"}
             submit={this.handleSubmit}
             entry={this.state.entry}
             handleChange={this.getInput}
@@ -44,13 +50,14 @@ export class NewEntry extends Component {
     );
   }
 }
-const mapStateToProps = state => ({
-  response: state.entriesReducer.new,
-  isLoading: state.loadingReducer.isLoading,
-  error: state.entriesReducer.error
+const mapStateToProps = ({ loadingReducer, entriesReducer }) => ({
+  isLoading: loadingReducer.isLoading,
+  error: entriesReducer.error,
+  entry: entriesReducer.one,
+  edit: entriesReducer.edit
 });
 
 export default connect(
   mapStateToProps,
-  { addEntry, Loading }
-)(NewEntry);
+  { editEntry, Loading, getEntry }
+)(EditEntry);
