@@ -14,7 +14,7 @@
 
 .navbar-brand,.nav-link{
   color: #fff !important;
-  font-size: 25px;
+  font-size: 30px;
 }
 .notfound {
   position: fixed;
@@ -27,4 +27,8 @@ body{
 }
 .space{
   padding-top: 50px;
+}
+
+.navbar{
+  width: 100vw;
 }

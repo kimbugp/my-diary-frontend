@@ -10,14 +10,14 @@ $primary:#630031;
 }
 .entry {
   margin: 20px;
-  min-height: 40px;
+  min-height: 1%;
 }
 .entry-card p {
   display: inline-block;
 }
 .entries-list{
   overflow: auto;
-  height: 900px;
+  height: 60vh;
 }
 .entry-header{
   color: #ffffff;

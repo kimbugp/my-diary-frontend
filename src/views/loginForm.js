@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const LoginForm = props => (
   <div className="title-tag">
-    <Jumbotron className="auth-form container">
+    <Jumbotron className="auth-form">
       <h1 >Login Form</h1>
       <AvForm onValidSubmit={props.submit}>
         <AvField name="username" label="Username" type="name" required />

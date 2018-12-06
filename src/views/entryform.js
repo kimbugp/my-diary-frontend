@@ -8,8 +8,8 @@ const EntryForm = props => {
   return (
     <Fragment>
       <Jumbotron className="m-5">
-        <Container>
-          <h1 className="display-4">{props.header}</h1>
+        <Container className="addnew">
+          <h1 className="lead">{props.header}</h1>
           <AvForm onValidSubmit={props.submit}>
             <AvField
               value={props.title}
