@@ -9,3 +9,4 @@ export const ENTRY_ERROR = "ENTRY_ERROR";
 export const GET_ENTRY = "GET_ENTRY";
 export const DELETE_ENTRY = "DELETE_ENTRY";
 export const EDIT_ENTRY = "EDIT_ENTRY";
+export const FETCH_TODOS="FETCH_TODOS"
